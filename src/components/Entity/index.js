@@ -6,9 +6,7 @@ class Entity extends HTMLElement {
       <div class="card">
         <h3 class="title">${this.entityItem?.title}</h3>
         <img src="${this.entityItem?.background}" alt="${this.entityItem?.title}"/>
-        <video autoplay muted loop>
-          <source src="${this.entityItem.videoArtUrl}" type="video/mp4" />
-        </video>
+        <video src="${this.entityItem.videoArtUrl}" type="video/mp4" autoplay muted loop></video>
       </div>
     `
   }
