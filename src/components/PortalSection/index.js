@@ -1,5 +1,8 @@
 import { getData, getItems } from "../../js/api.js";
 
+const rowHeight = 280;
+const cardLength = 360;
+
 class PortalSection extends HTMLElement {
   static observedAttributes = ["navigating"];
 
@@ -12,8 +15,6 @@ class PortalSection extends HTMLElement {
     this.currentEntity = 0;
     this.maxEntities = 0;
     this.currentEntityItems = [];
-    this.cardLength = 360;
-    this.rowHeight = 280;
     this.currentEntitySelected = null;
     this.isModalOpened = false;
     this.#fetchAndSetData();
@@ -27,6 +28,8 @@ class PortalSection extends HTMLElement {
         this.#setDynamicData(item.set.refId, index);
       }
     });
+
+    this.sortItems();
   }
 
   // initial fetch of data
@@ -76,6 +79,14 @@ class PortalSection extends HTMLElement {
     this.append(section);
   }
 
+  // sort the dom items after fetching dynamic data
+  sortItems() {
+    const list = document.querySelector('portal-section');
+    [...list.children]
+    .sort((a, b) => a.id.replace('section','') > b.id.replace('section','') ? 1 : -1)
+    .forEach(node => list.appendChild(node));
+  }
+
   isNavigating(value) {
     this.setAttribute("navigating", value);
   }
@@ -85,7 +96,7 @@ class PortalSection extends HTMLElement {
     if (!this.currentRow <= 0) {
       this.currentRow--;
     }
-    window.scrollTo(0, this.rowHeight * this.currentRow - 1);
+    window.scrollTo(0, rowHeight * this.currentRow - 1);
   }
 
   down() {
@@ -94,7 +105,7 @@ class PortalSection extends HTMLElement {
       return;
     }
     this.currentRow++;
-    window.scrollTo(0, this.rowHeight * this.currentRow - 1);
+    window.scrollTo(0, rowHeight * this.currentRow - 1);
   }
 
   right() {
@@ -103,7 +114,7 @@ class PortalSection extends HTMLElement {
       return;
     }
     this.currentEntity++;
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(this.cardLength * this.currentEntity - 1, 0);
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(cardLength * this.currentEntity - 1, 0);
   }
 
   left() {
@@ -111,7 +122,7 @@ class PortalSection extends HTMLElement {
     if (!this.currentEntity <= 0) {
       this.currentEntity--;
     }
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(this.cardLength * this.currentEntity - 1, 0);
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(cardLength * this.currentEntity - 1, 0);
   }
 
   enter() {
