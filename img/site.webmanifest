@@ -1,0 +1,8 @@
+{
+    "name": "DPlus project",
+    "short_name": "DPlus",
+    "icons": [],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
