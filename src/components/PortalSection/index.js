@@ -12,7 +12,7 @@ class PortalSection extends HTMLElement {
     this.currentEntity = 0;
     this.maxEntities = 0;
     this.currentEntityItems = [];
-    this.cardLength = 320;
+    this.cardLength = 360;
     this.rowHeight = 280;
     this.currentEntitySelected = null;
     this.isModalOpened = false;
@@ -103,7 +103,7 @@ class PortalSection extends HTMLElement {
       return;
     }
     this.currentEntity++;
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollBy(this.cardLength, 0);
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(this.cardLength * this.currentEntity - 1, 0);
   }
 
   left() {
@@ -111,7 +111,7 @@ class PortalSection extends HTMLElement {
     if (!this.currentEntity <= 0) {
       this.currentEntity--;
     }
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollBy(-this.cardLength, 0);
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(this.cardLength * this.currentEntity - 1, 0);
   }
 
   enter() {
