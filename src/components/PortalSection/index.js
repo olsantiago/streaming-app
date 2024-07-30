@@ -28,8 +28,6 @@ class PortalSection extends HTMLElement {
         this.#setDynamicData(item.set.refId, index);
       }
     });
-
-    this.sortItems();
   }
 
   // initial fetch of data
@@ -61,7 +59,7 @@ class PortalSection extends HTMLElement {
   createRows(item, index) {
     this.rowCount++;
     const section = document.createElement("section");
-    section.setAttribute("id", `section${index}`);
+    section.setAttribute("id", `section${this.rowCount - 1}`);
     section.setAttribute("class", `entity-section`);
     section.setAttribute("focused", index === 0);
 
@@ -77,14 +75,6 @@ class PortalSection extends HTMLElement {
     section.append(portalRow);
     this.rows.push(section);
     this.append(section);
-  }
-
-  // sort the dom items after fetching dynamic data
-  sortItems() {
-    const list = document.querySelector('portal-section');
-    [...list.children]
-    .sort((a, b) => a.id.replace('section','') > b.id.replace('section','') ? 1 : -1)
-    .forEach(node => list.appendChild(node));
   }
 
   isNavigating(value) {
