@@ -94,7 +94,7 @@ section.entity-section portal-entity video {
 }
 
 /* show video when item is focused */
-section.entity-section[focused="true"] portal-entity[entityFocused="true"] img {
+section.entity-section[focused="true"] portal-entity[entityFocused="true"] img:not(.static) {
   animation: fade-out 0.2s linear forwards;
   animation-delay: 1.5s
 }

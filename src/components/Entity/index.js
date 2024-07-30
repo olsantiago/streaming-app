@@ -43,11 +43,23 @@ class Entity extends HTMLElement {
   }
 
   connectedCallback() {
+    // prevent broken image icon
     document.querySelectorAll('img').forEach(function (img) {
       img.onerror = function () {
         this.style.display = 'none';
       };
-    })
+    });
+
+    // prevent from hiding image if video src is NOT available
+    document.querySelectorAll('video').forEach(function (vid) {
+      const isSrcAvailable = vid.getAttribute("src");
+      if(isSrcAvailable) {
+        vid.play();
+      } else {
+        vid.style.display = 'none';
+        vid.closest("div").querySelector("img").classList.add("static");
+      }
+    });
     this.render();
   }
 
