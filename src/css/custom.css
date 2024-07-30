@@ -99,6 +99,10 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] img:n
   animation-delay: 1.5s
 }
 
+section.entity-section[focused="true"] portal-entity[entityFocused="true"] img.static + h3 {
+  z-index: 1;
+}
+
 section.entity-section[focused="true"] portal-entity[entityFocused="true"] video {
   display: block
 }

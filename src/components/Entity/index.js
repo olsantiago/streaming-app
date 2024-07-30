@@ -4,8 +4,8 @@ class Entity extends HTMLElement {
   template = () => {
     return `
       <div class="card">
-        <h3 class="title">${this.entityItem?.title}</h3>
         <img src="${this.entityItem?.background}" alt="${this.entityItem?.title}"/>
+        <h3 class="title">${this.entityItem?.title}</h3>
         <video src="${this.entityItem.videoArtUrl}" type="video/mp4" autoplay muted loop playsinline></video>
       </div>
     `
