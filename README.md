@@ -14,4 +14,4 @@ This can be run simply by using VSCode's live server or go to https://olsantiago
 
 ## Navigation
 
-Basic remoter controls such as up, down, lef, right, enter, back and esc to exit modals.
+Basic remote controls such as up, down, left, right, enter, back and esc to exit modals.
