@@ -46,7 +46,7 @@ class Entity extends HTMLElement {
     // prevent broken image icon
     document.querySelectorAll('img').forEach(function (img) {
       img.onerror = function () {
-        this.style.display = 'none';
+        this.src = '../../img/home/generic.png';
       };
     });
 
