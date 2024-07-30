@@ -13,7 +13,7 @@ class PortalSection extends HTMLElement {
     this.maxEntities = 0;
     this.currentEntityItems = [];
     this.cardLength = 320;
-    this.rowHeight = 120;
+    this.rowHeight = 280;
     this.currentEntitySelected = null;
     this.isModalOpened = false;
     this.#fetchAndSetData();
@@ -85,8 +85,7 @@ class PortalSection extends HTMLElement {
     if (!this.currentRow <= 0) {
       this.currentRow--;
     }
-    const fullScroll = document.body.offsetHeight - window.innerHeight;
-    window.scrollTo(0, (fullScroll / this.rowCount) * this.currentRow);
+    window.scrollTo(0, this.rowHeight * this.currentRow - 1);
   }
 
   down() {
@@ -95,8 +94,7 @@ class PortalSection extends HTMLElement {
       return;
     }
     this.currentRow++;
-    const fullScroll = document.body.offsetHeight - window.innerHeight;
-    window.scrollTo(0, (fullScroll / this.rowCount) * (this.currentRow + 1) - this.rowHeight);
+    window.scrollTo(0, this.rowHeight * this.currentRow - 1);
   }
 
   right() {
