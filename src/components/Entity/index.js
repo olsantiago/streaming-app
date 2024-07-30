@@ -37,6 +37,7 @@ class Entity extends HTMLElement {
     this.setAttribute("entered", false);
   }
 
+  // set focused on entity
   isFocused(value) {
     this.setAttribute("entityFocused", value);
   }

@@ -10,6 +10,7 @@ function activateRemote() {
     const currentRowItems = rowItems[0];
     currentRowItems.isNavigating(e.key);
 
+    // start navigating inside the modal
     if(isModalOpened) {
       portalModal.isNavigating(e.key);
     }

@@ -15,7 +15,6 @@ body {
 }
 
 /* HEADER */
-
 .header {
   background-color: #000;
   position: fixed;
@@ -45,7 +44,6 @@ body {
 }
 
 /* SECTIONS */
-
 section.entity-section {
   width: 100vw;
   height: 260px;
@@ -95,6 +93,7 @@ section.entity-section portal-entity video {
   display: none
 }
 
+/* show video when item is focused */
 section.entity-section[focused="true"] portal-entity[entityFocused="true"] img {
   animation: fade-out 0.2s linear forwards;
   animation-delay: 1.5s
@@ -105,7 +104,6 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] video
 }
 
 /* CARDS */
-
 .card {
   display: flex;
   overflow: hidden;
@@ -140,6 +138,7 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] video
   flex: 1
 }
 
+/* animation when entity is focused */
 section.entity-section[focused="true"] portal-entity[entityFocused="true"] .card {
   transform: scale(1.1);
   border: 2px solid #FFF;
@@ -237,6 +236,8 @@ button svg {
   max-width: 20px;
   margin-right: 12px
 }
+
+/* ANIMATIONS */
 
 @keyframes fade-out {
   from {

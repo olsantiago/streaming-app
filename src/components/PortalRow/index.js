@@ -13,6 +13,7 @@ class PortalRow extends HTMLElement {
         videoArtUrl: ""
       }
 
+      // add distinction for each entity and set specific values available
       const isFull = item.contentType === "full";
       const isSeries = item.seriesId;
       const collection = item.collectionId;

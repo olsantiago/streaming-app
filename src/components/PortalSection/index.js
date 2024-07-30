@@ -29,6 +29,7 @@ class PortalSection extends HTMLElement {
     });
   }
 
+  // initial fetch of data
   #fetchAndSetData() {
     getData().then((data) => {
       data?.forEach((item, index) => {
@@ -53,6 +54,7 @@ class PortalSection extends HTMLElement {
     });
   }
 
+  // creates the row that hold the items
   createRows(item, index) {
     this.rowCount++;
     const section = document.createElement("section");
@@ -120,6 +122,7 @@ class PortalSection extends HTMLElement {
     this.currentEntitySelected.entered();
   }
 
+  // remove modal when closed
   back() {
     if(this.isModalOpened) {
       document.querySelector("portal-modal").remove();
@@ -127,6 +130,7 @@ class PortalSection extends HTMLElement {
     }
   }
 
+  // set the current entitiy that is being focused
   setCurrentEntityView() {
     const entityItems = [...this.rows[this.currentRow].querySelectorAll("portal-entity")];
 
@@ -138,6 +142,7 @@ class PortalSection extends HTMLElement {
     });
   }
 
+  // set the current row that is being focusd
   setCurrentRowView() {
     this.currentEntityItems = [...this.rows[this.currentRow].querySelectorAll("portal-entity")];
 
@@ -157,6 +162,7 @@ class PortalSection extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'navigating') {
+      // this will be checked to prevent navigating when modal-opened
       this.isModalOpened = document.body.classList.contains("modal-opened");
 
       if (newValue === "ArrowUp") {
@@ -181,7 +187,7 @@ class PortalSection extends HTMLElement {
         this.enter();
       }
 
-      if(newValue === "Backspace") {
+      if(newValue === "Backspace" || newValue === "Escape") {
         this.back();
       }
 
