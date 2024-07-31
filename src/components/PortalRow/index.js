@@ -10,7 +10,8 @@ class PortalRow extends HTMLElement {
       const entity = {
         title: "",
         background: "",
-        videoArtUrl: ""
+        videoArtUrl: "",
+        titleLayered: null,
       }
 
       // add distinction for each entity and set specific values available
@@ -19,13 +20,17 @@ class PortalRow extends HTMLElement {
       const collection = item.collectionId;
 
       if (isFull) {
+        // console.log(item.image.title_treatment["1.78"].program.default.url);
         entity.title = item.text.title.full.program.default.content;
         entity.background = item.image.hero_tile["1.78"].program.default.url;
+        entity.titleLayered = item.image.title_treatment["1.78"].program.default.url;
       }
 
       if (isSeries) {
+        // console.log(item.image.title_treatment["1.78"].series.default.url);
         entity.title = item.text.title.full.series.default.content;
         entity.background = item.image.hero_tile["1.78"].series.default.url;
+        entity.titleLayered = item.image.title_treatment["1.78"].series.default.url;
       }
 
       if (collection) {

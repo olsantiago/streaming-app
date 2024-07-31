@@ -6,10 +6,11 @@ class Modal extends HTMLElement {
       <div class="modal">
         <article
           class="modal-container"
-          style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url(${this.currentDetails.background});"
+          style="background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7)), url(${this.currentDetails.background});"
         >
           <section class="modal-container-body details">
-            <h2>${this.currentDetails.title}</h2>
+            <img class="${this.currentDetails.titleLayered ? 'd-block' : 'd-none'}" src=${this.currentDetails.titleLayered}  />
+            <h2 class="${!this.currentDetails.titleLayered ? 'd-block' : 'd-none'}">${this.currentDetails.title}</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Unum nescio, quo modo possit, si luxuriosus sit,
               finitas cupiditates habere.
@@ -54,6 +55,12 @@ class Modal extends HTMLElement {
   connectedCallback() {
     this.render();
     document.body.classList.add("modal-opened");
+    document.querySelectorAll('img').forEach(function (img) {
+      img.onerror = function () {
+        this.style.display = "none";
+        this.closest("section").querySelector("h2").style.display = "block";
+      };
+    });
   }
 
   disconnectedCallback() {

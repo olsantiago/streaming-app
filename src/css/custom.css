@@ -103,7 +103,7 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] img.s
   filter: brightness(50%);
 }
 
-section.entity-section[focused="true"] portal-entity[entityFocused="true"] img + h3 {
+section.entity-section[focused="true"] portal-entity[entityFocused="true"] img+h3 {
   z-index: 1;
 }
 
@@ -176,10 +176,10 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] .card
   width: 90vw;
   margin-left: auto;
   margin-right: auto;
-  background-color: #212121;
+  background-color: #000;
   background-repeat: no-repeat;
-  background-position: 60%;
-  background-size: cover;
+  background-position: center;
+  background-size: 100%;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
@@ -202,8 +202,16 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] .card
 }
 
 .modal-container-body {
-  padding: 24px 32px 51px;
+  padding: 0 32px;
+  padding-top: 64px;
   overflow-y: auto
+}
+
+.modal-container .modal-container-body img {
+  object-fit: cover;
+  object-position: center;
+  width: 200px !important;
+  height: auto;
 }
 
 .details h2 {
@@ -283,4 +291,12 @@ button svg {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
 }
