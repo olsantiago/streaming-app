@@ -1,7 +1,7 @@
 import { getData, getItems } from "../../js/api.js";
 
-const rowHeight = 280;
-const cardLength = 360;
+var ROWHEIGHT = 280;
+var CARDLENGTH = 360;
 
 class PortalSection extends HTMLElement {
   static observedAttributes = ["navigating"];
@@ -86,7 +86,7 @@ class PortalSection extends HTMLElement {
     if (!this.currentRow <= 0) {
       this.currentRow--;
     }
-    window.scrollTo(0, rowHeight * this.currentRow - 1);
+    window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   down() {
@@ -95,34 +95,31 @@ class PortalSection extends HTMLElement {
       return;
     }
     this.currentRow++;
-    window.scrollTo(0, rowHeight * this.currentRow - 1);
+    window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   right() {
-    if(this.isModalOpened) return;
     if(this.currentEntityItems.length > 0 && this.currentEntity === (this.currentEntityItems.length - 1)) {
       return;
     }
     this.currentEntity++;
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(cardLength * this.currentEntity - 1, 0);
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
   left() {
-    if(this.isModalOpened) return;
     if (!this.currentEntity <= 0) {
       this.currentEntity--;
     }
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(cardLength * this.currentEntity - 1, 0);
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
   enter() {
-    if(this.isModalOpened) return;
     this.currentEntitySelected = document.querySelectorAll("portal-row")[this.currentRow]?.querySelectorAll("portal-entity")[this.currentEntity];
     this.currentEntitySelected.entered();
   }
 
   // remove modal when closed
-  back() {
+  exit() {
     if(this.isModalOpened) {
       document.querySelector("portal-modal").remove();
       this.currentEntitySelected.exited();
@@ -164,6 +161,10 @@ class PortalSection extends HTMLElement {
       // this will be checked to prevent navigating when modal-opened
       this.isModalOpened = document.body.classList.contains("modal-opened");
 
+      if(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter"].includes(newValue)) {
+        if(this.isModalOpened) return;
+      }
+
       if (newValue === "ArrowUp") {
         this.up();
       }
@@ -187,7 +188,7 @@ class PortalSection extends HTMLElement {
       }
 
       if(newValue === "Backspace" || newValue === "Escape") {
-        this.back();
+        this.exit();
       }
 
       this.setCurrentRowView();
