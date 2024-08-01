@@ -14,6 +14,7 @@ class Entity extends HTMLElement {
     super();
     this.entityItem = null;
     this.unParsedEntityItem = "";
+    this.testEntity = null
   }
 
   render() {
@@ -23,13 +24,13 @@ class Entity extends HTMLElement {
   }
 
   setEntityData(value) {
-    this.setAttribute("data", value);
+    this.entityItem = value;
   }
 
   entered() {
     this.setAttribute("entered", true);
     const portalModal = document.createElement("portal-modal");
-    portalModal.setAttribute("details", this.unParsedEntityItem);
+    portalModal.setDetails(this.entityItem);
     document.body.append(portalModal);
   }
 
@@ -61,13 +62,6 @@ class Entity extends HTMLElement {
     this.render();
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "data") {
-      const item = JSON.parse(decodeURIComponent(newValue));
-      this.unParsedEntityItem = newValue;
-      this.entityItem = item;
-    }
-  }
 }
 
 customElements.define("portal-entity", Entity);

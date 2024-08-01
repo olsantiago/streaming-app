@@ -41,25 +41,16 @@ class PortalRow extends HTMLElement {
       }
 
       const portalEntity = document.createElement("portal-entity");
-      const data = encodeURIComponent(JSON.stringify(entity));
+      portalEntity.setEntityData(entity);
       portalEntity.style.animationDelay = `${index / 8}s`;
       portalEntity.isFocused(index === 0);
-      portalEntity.setEntityData(data);
       this.append(portalEntity);
     })
   }
 
   setEntities(value) {
-    this.setAttribute("entities", value);
+    this.#createEntities(value);
   }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if(name === "entities") {
-      const items = JSON.parse(decodeURIComponent(newValue));
-      this.#createEntities(items);
-    }
-  }
-
 }
 
 customElements.define("portal-row", PortalRow);

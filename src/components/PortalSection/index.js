@@ -68,8 +68,7 @@ class PortalSection extends HTMLElement {
     portalHeader.setTitle(rowTitle);
 
     const portalRow = document.createElement("portal-row");
-    const entities = encodeURIComponent(JSON.stringify(item.set.items));
-    portalRow.setEntities(entities);
+    portalRow.setEntities(item.set.items);
 
     section.append(portalHeader);
     section.append(portalRow);

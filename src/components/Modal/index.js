@@ -52,6 +52,10 @@ class Modal extends HTMLElement {
     this.setAttribute("navigating", value);
   }
 
+  setDetails(value) {
+    this.currentDetails = value;
+  }
+
   connectedCallback() {
     this.render();
     document.body.classList.add("modal-opened");
@@ -68,7 +72,7 @@ class Modal extends HTMLElement {
   }
 
   setDetails(value) {
-    this.setAttribute("details", value);
+    this.currentDetails = value;
   }
 
   right() {
@@ -88,11 +92,6 @@ class Modal extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "details") {
-      const item = JSON.parse(decodeURIComponent(newValue));
-      this.currentDetails = item;
-    }
-
     if (name === "navigating") {
       this.currentButtons = this.querySelectorAll("button");
 
