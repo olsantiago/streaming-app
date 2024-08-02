@@ -81,34 +81,24 @@ class PortalSection extends HTMLElement {
   }
 
   up() {
-    if(this.isModalOpened) return;
-    if (!this.currentRow <= 0) {
-      this.currentRow--;
-    }
+    if (!this.currentRow <= 0) this.currentRow--;
     window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   down() {
-    if(this.isModalOpened) return;
-    if (this.rowCount > 0 && this.currentRow === (this.rowCount - 1)) {
-      return;
-    }
+    if (this.rowCount > 0 && this.currentRow === (this.rowCount - 1)) return;
     this.currentRow++;
     window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   right() {
-    if(this.currentEntityItems.length > 0 && this.currentEntity === (this.currentEntityItems.length - 1)) {
-      return;
-    }
+    if(this.currentEntityItems.length > 0 && this.currentEntity === (this.currentEntityItems.length - 1)) return;
     this.currentEntity++;
     this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
   left() {
-    if (!this.currentEntity <= 0) {
-      this.currentEntity--;
-    }
+    if (!this.currentEntity <= 0) this.currentEntity--;
     this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
