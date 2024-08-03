@@ -179,7 +179,7 @@ section.entity-section[focused="true"] portal-entity[entityFocused="true"] .card
   background-color: #000;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: cover;
   border-radius: 16px;
   overflow: hidden;
   display: flex;
