@@ -12,6 +12,9 @@ class PortalRow extends HTMLElement {
         background: "",
         videoArtUrl: "",
         titleLayered: null,
+        badge: null,
+        releaseYear: null,
+        isCollection: false
       }
 
       // add distinction for each entity and set specific values available
@@ -23,22 +26,26 @@ class PortalRow extends HTMLElement {
         entity.title = item.text.title.full.program.default.content;
         entity.background = item.image.tile["1.78"].program.default.url;
         entity.titleLayered = item.image.title_treatment["1.78"].program.default.url.replace("=jpeg", '=png');
+        entity.badge = item.mediaMetadata.format;
+        entity.releaseYear = item.releases[0].releaseYear;
       }
       if (isSeries) {
         entity.title = item.text.title.full.series.default.content;
         entity.background = item.image.tile["1.78"].series.default.url;
         entity.titleLayered = item.image.title_treatment["1.78"].series.default.url.replace("=jpeg", '=png');
+        entity.badge = item.ratings[0].value;
+        entity.releaseYear = item.releases[0].releaseYear;
       }
 
       if (collection) {
         entity.title = item.text.title.full.collection.default.content;
         entity.background = item.image.tile["1.78"].default.default.url;
+        entity.isCollection = true;
       }
 
       if(item.videoArt.length > 0) {
         entity.videoArtUrl = item.videoArt[0].mediaMetadata.urls[0].url;
       }
-
       const portalEntity = document.createElement("portal-entity");
       portalEntity.setEntityData(entity);
       portalEntity.style.animationDelay = `${index / 8}s`;

@@ -14,7 +14,6 @@ class Entity extends HTMLElement {
     super();
     this.entityItem = null;
     this.unParsedEntityItem = "";
-    this.testEntity = null
   }
 
   render() {

@@ -11,6 +11,13 @@ class Modal extends HTMLElement {
           <section class="modal-container-body details">
             ${!this.currentDetails.titleLayered ? '<div></div>' : `<img src=${this.currentDetails.titleLayered} />`}
             <h2 class="${!this.currentDetails.titleLayered ? 'd-block' : 'd-none'}">${this.currentDetails.title}</h2>
+            ${this.currentDetails.isCollection
+              ? '<div></div>'
+              : `<div class="badge-container">
+                  <span>${this.currentDetails.releaseYear}</span>
+                  <span class="badge">${this.currentDetails.badge}</span>
+                </div>`
+            }
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Unum nescio, quo modo possit, si luxuriosus sit,
               finitas cupiditates habere.
