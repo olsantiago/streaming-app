@@ -11,6 +11,7 @@ This can be run simply by using VSCode's live server or go to https://olsantiago
 - HTML
 - CSS
 - Vanilla Javascript
+- Web Components
 
 ## Navigation
 
