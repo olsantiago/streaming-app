@@ -1,7 +1,7 @@
 function activateRemote() {
   const rowItems = document.querySelectorAll("portal-section");
 
-  document.onkeydown = function (e) {
+  document.onkeyup = function (e) {
     const isModalOpened = document.body.classList.contains("modal-opened");
     const portalModal = document.querySelector("portal-modal");
 
