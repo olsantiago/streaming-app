@@ -10,7 +10,7 @@ This can be run simply by using VSCode's live server or go to https://olsantiago
 
 - HTML
 - CSS
-- Vanilla Javascript
+- Javascript
 - Web Components
 
 ## Navigation
