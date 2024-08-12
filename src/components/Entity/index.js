@@ -1,19 +1,19 @@
 class Entity extends HTMLElement {
-  static observedAttributes = ["data", "entered", "entityFocused"];
+  static observedAttributes = ["entered", "entityFocused", "play"];
 
   template = () => {
     return `
       <div class="card">
         <img src="${this.entityItem?.background}" alt="${this.entityItem?.title}"/>
         <h3 class="title">${this.entityItem?.title}</h3>
-        <video src="${this.entityItem.videoArtUrl}" type="video/mp4" autoplay muted loop playsinline></video>
+        <video src="${this.entityItem.videoArtUrl}" type="video/mp4" muted loop playsinline></video>
       </div>
     `
   }
   constructor() {
     super();
     this.entityItem = null;
-    this.unParsedEntityItem = "";
+    this.playVideo = false;
   }
 
   render() {
@@ -40,6 +40,26 @@ class Entity extends HTMLElement {
   // set focused on entity
   isFocused(value) {
     this.setAttribute("entityFocused", value);
+    this.playVideo = value;
+    this.controlVideoElement();
+  }
+
+  controlVideoElement() {
+    const video = this.querySelector('video');
+    if(video) {
+      const isSrcAvailable = video.getAttribute("src");
+      if(isSrcAvailable) {
+        if(this.playVideo) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      } else {
+        // prevent from hiding image if video src is NOT available
+        video.style.display = 'none';
+        video.closest("div").querySelector("img").classList.add("static");
+      }
+    }
   }
 
   connectedCallback() {
@@ -50,15 +70,8 @@ class Entity extends HTMLElement {
       };
     });
 
-    // prevent from hiding image if video src is NOT available
-    document.querySelectorAll('video').forEach(function (vid) {
-      const isSrcAvailable = vid.getAttribute("src");
-      if(!isSrcAvailable) {
-        vid.style.display = 'none';
-        vid.closest("div").querySelector("img").classList.add("static");
-      }
-    });
     this.render();
+    this.controlVideoElement();
   }
 
 }

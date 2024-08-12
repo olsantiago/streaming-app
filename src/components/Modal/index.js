@@ -6,7 +6,7 @@ class Modal extends HTMLElement {
       <div class="modal">
         <article
           class="modal-container"
-          style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${this.currentDetails.background});"
+          style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${this.currentDetails.modalBackground.replace('=500', '=900')});"
         >
           <section class="modal-container-body details">
             ${!this.currentDetails.titleLayered ? '<div></div>' : `<img src=${this.currentDetails.titleLayered} />`}
