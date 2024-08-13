@@ -357,7 +357,7 @@ button svg {
   scroll-snap-align: center;
   flex-shrink: 0;
   width: 98vw;
-  height: 500px;
+  height: 50vh;
   margin-right: 50px;
   border-radius: 10px;
   background: #eee;
