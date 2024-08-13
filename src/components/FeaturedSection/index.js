@@ -60,7 +60,7 @@ class FeaturedSection extends HTMLElement {
     const autoScroll = () => {
       this.scrollToItem();
     }
-    setInterval(autoScroll, 2000);
+    setInterval(autoScroll, 4500);
   }
 }
 
