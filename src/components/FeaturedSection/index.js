@@ -30,10 +30,10 @@ class FeaturedSection extends HTMLElement {
       const img = document.createElement('img');
 
       if(isFull) {
-        div.style.backgroundImage = `url('${item.image.hero_collection["1.78"].program.default.url.replace('=500', '=800')}')`;
+        div.style.backgroundImage = `url('${item.image.hero_collection["1.78"].program.default.url.replace('=500', '=900')}')`;
         img.src = item.image.title_treatment["1.78"].program.default.url.replace("=jpeg", '=png');
       } else {
-        div.style.backgroundImage = `url('${item.image.hero_collection["1.78"].series.default.url.replace('=500', '=800')}')`;
+        div.style.backgroundImage = `url('${item.image.hero_collection["1.78"].series.default.url.replace('=500', '=900')}')`;
         img.src = item.image.title_treatment["1.78"].series.default.url.replace("=jpeg", '=png');
       }
 
