@@ -45,6 +45,7 @@ class Modal extends HTMLElement {
   }
   constructor() {
     super();
+    document.addEventListener('keyup', this.isNavigating.bind(this));
     this.currentDetails = null;
     this.currentButtons = [];
   }
@@ -55,8 +56,8 @@ class Modal extends HTMLElement {
     `;
   }
 
-  isNavigating(value) {
-    this.setAttribute("navigating", value);
+  isNavigating(event) {
+    this.setAttribute("navigating", event.code);
   }
 
   setDetails(value) {

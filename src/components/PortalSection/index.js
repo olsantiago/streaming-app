@@ -8,6 +8,7 @@ class PortalSection extends HTMLElement {
 
   constructor() {
     super();
+    document.addEventListener('keyup', this.isNavigating.bind(this));
     this.rows = [];
     this.currentRow = 0;
     this.rowCount = 0;
@@ -18,6 +19,7 @@ class PortalSection extends HTMLElement {
     this.currentEntitySelected = null;
     this.isModalOpened = false;
     this.#fetchAndSetData();
+
   }
 
   render() {
@@ -80,30 +82,26 @@ class PortalSection extends HTMLElement {
     this.append(section);
   }
 
-  isNavigating(value) {
-    this.setAttribute("navigating", value);
+  isNavigating(event) {
+    this.setAttribute("navigating", event.code);
   }
 
   up() {
     if (!this.currentRow <= 0) this.currentRow--;
-    window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   down() {
     if (this.rowCount > 0 && this.currentRow === (this.rowCount - 1)) return;
     this.currentRow++;
-    window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   right() {
     if(this.currentEntityItems.length > 0 && this.currentEntity === (this.currentEntityItems.length - 1)) return;
     this.currentEntity++;
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
   left() {
     if (!this.currentEntity <= 0) this.currentEntity--;
-    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
   enter() {
@@ -129,6 +127,8 @@ class PortalSection extends HTMLElement {
         item.isFocused(true);
       }
     });
+
+    this.rows[this.currentRow]?.querySelector("portal-row").scrollTo(CARDLENGTH * this.currentEntity - 1, 0);
   }
 
   // set the current row that is being focusd
@@ -147,6 +147,7 @@ class PortalSection extends HTMLElement {
         item.setAttribute('focused', true);
       }
     });
+    window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
