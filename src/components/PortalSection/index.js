@@ -57,7 +57,11 @@ class PortalSection extends HTMLElement {
 
   // creates the row that hold the items
   createRows(item, index) {
+    const featured = document.querySelector("featured-section");
     this.rowCount++;
+    if(this.rowCount === 5) {
+      featured.setEntities(item);
+    }
     const section = document.createElement("section");
     section.setAttribute("id", `section${this.rowCount - 1}`);
     section.setAttribute("class", `entity-section`);
