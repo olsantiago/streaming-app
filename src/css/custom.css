@@ -33,6 +33,62 @@ body {
   object-position: center
 }
 
+.tooltip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tooltip__item {
+  min-width: 100px;
+  padding: 20px;
+  opacity: 0;
+  background: white;
+  transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+  color: #484848;
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  font-weight: 500;
+  box-shadow: 0 2px 1px #bcbcbc;
+  z-index: 4;
+  position: relative;
+  left: 50%;
+  top: 70px;
+  animation: fade-out 0.8s linear forwards;
+  animation-delay: 2.2s;
+}
+
+.tooltip__item:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.tooltip__initiator {
+  cursor: pointer;
+  z-index: 5;
+}
+
+.tooltip[data-direction=bottom] .tooltip__initiator~.tooltip__item {
+  transform: translate3d(-50%, 0, 0);
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip[data-direction=bottom] .tooltip__item:after {
+  top: -0.5em;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  border-width: 0 0.5em 0.5em 0.5em;
+  border-color: transparent transparent white transparent;
+  -webkit-filter: drop-shadow(1px 2px 1px #bcbcbc);
+  filter: drop-shadow(1px -1px 1px #bcbcbc);
+}
+
 .main {
   min-height: 120vh;
   padding-top: 100px;
@@ -260,7 +316,7 @@ button svg {
   margin-top: 24px;
 }
 
-.badge-container span{
+.badge-container span {
   margin-right: 8px;
   font-size: 12
 }
@@ -316,6 +372,16 @@ button svg {
   }
 }
 
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 .d-none {
   display: none;
 }
@@ -353,7 +419,7 @@ button svg {
   background: transparent;
 }
 
-.slides > div {
+.slides>div {
   scroll-snap-align: center;
   flex-shrink: 0;
   width: 98vw;
@@ -375,8 +441,7 @@ button svg {
   background-repeat: no-repeat;
 }
 
-.slides > div img {
+.slides>div img {
   width: 350px;
   height: auto;
 }
-
