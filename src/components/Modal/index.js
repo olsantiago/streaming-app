@@ -1,5 +1,5 @@
 class Modal extends HTMLElement {
-  static observedAttributes = ["details", "navigating"];
+  static observedAttributes = ["navigating"];
 
   template = () => {
     return `

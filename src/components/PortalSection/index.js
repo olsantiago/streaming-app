@@ -4,7 +4,7 @@ var ROWHEIGHT = 280;
 var CARDLENGTH = 360;
 
 class PortalSection extends HTMLElement {
-  static observedAttributes = ["navigating"];
+  static observedAttributes = ["navigating", "disabled"];
 
   constructor() {
     super();
@@ -19,7 +19,8 @@ class PortalSection extends HTMLElement {
     this.currentEntitySelected = null;
     this.isModalOpened = false;
     this.#fetchAndSetData();
-
+    this.preventAllNavigation = false;
+    this.featuredSection = null;
   }
 
   render() {
@@ -59,10 +60,10 @@ class PortalSection extends HTMLElement {
 
   // creates the row that hold the items
   createRows(item, index) {
-    const featured = document.querySelector("featured-section");
+    this.featuredSection = document.querySelector("featured-section");
     this.rowCount++;
     if(this.rowCount === 5) {
-      featured.setEntities(item);
+      this.featuredSection.setEntities(item);
     }
     const section = document.createElement("section");
     section.setAttribute("id", `section${this.rowCount - 1}`);
@@ -83,10 +84,24 @@ class PortalSection extends HTMLElement {
   }
 
   isNavigating(event) {
-    this.setAttribute("navigating", event.code);
+    this.setAttribute("navigating", event?.code);
+  }
+
+  setDisabled(value) {
+    this.preventAllNavigation = value;
+    this.setAttribute("disabled", value);
+  }
+
+  connectedCallback() {
+    this.setDisabled(true);
   }
 
   up() {
+    if (this.currentRow === 0) {
+      this.featuredSection.setDisabled(false);
+      this.setDisabled(true);
+      return
+    };
     if (!this.currentRow <= 0) this.currentRow--;
   }
 
@@ -98,6 +113,7 @@ class PortalSection extends HTMLElement {
   right() {
     if(this.currentEntityItems.length > 0 && this.currentEntity === (this.currentEntityItems.length - 1)) return;
     this.currentEntity++;
+
   }
 
   left() {
@@ -133,6 +149,7 @@ class PortalSection extends HTMLElement {
 
   // set the current row that is being focusd
   setCurrentRowView() {
+    if(this.preventAllNavigation) return;
     this.currentEntityItems = [...this.rows[this.currentRow].querySelectorAll("portal-entity")];
 
     const currentEntityFocused = this.currentEntityItems.findIndex(
@@ -151,6 +168,7 @@ class PortalSection extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
+    if(this.preventAllNavigation) return;
     if (name === 'navigating') {
       // this will be checked to prevent navigating when modal-opened
       this.isModalOpened = document.body.classList.contains("modal-opened");
