@@ -246,25 +246,21 @@ portal-entity {
 }
 
 section.entity-section portal-entity video {
-  display: none
+  display: block;
 }
 
 /* show video when item is focused */
-section.entity-section[focused="true"] portal-entity[entityFocused="true"] img:not(.static) {
+portal-section:not([disabled="true"]) section.entity-section[focused="true"] portal-entity[entityFocused="true"] img:not(.static) {
   animation: fade-out 0.2s linear forwards;
   animation-delay: 1.5s
 }
 
-section.entity-section[focused="true"] portal-entity[entityFocused="true"] img.static {
+portal-section:not([disabled="true"]) section.entity-section[focused="true"] portal-entity[entityFocused="true"] img.static {
   filter: brightness(50%);
 }
 
-section.entity-section[focused="true"] portal-entity[entityFocused="true"] img+h3 {
+portal-section:not([disabled="true"]) section.entity-section[focused="true"] portal-entity[entityFocused="true"] img+h3 {
   z-index: 1;
-}
-
-section.entity-section[focused="true"] portal-entity[entityFocused="true"] video {
-  display: block
 }
 
 /* CARDS */
