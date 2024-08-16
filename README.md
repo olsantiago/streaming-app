@@ -1,6 +1,6 @@
 # Dplus Project
 
-A simple streaming app
+A simple streaming app project, with contstraints of NO JS frameworks or Webpack used to minimize app file size while still being feature rich.
 
 ## How to run
 
