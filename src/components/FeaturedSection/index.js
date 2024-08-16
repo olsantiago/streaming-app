@@ -47,6 +47,7 @@ class FeaturedSection extends HTMLElement {
       div.append(img);
       indicator.setAttribute("id", `indicator-${index}`);
       if(index === 0) {
+        div.classList.add("active");
         indicator.classList.add("active");
       }
       slides.append(div);
