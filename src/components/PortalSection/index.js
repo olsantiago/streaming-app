@@ -164,7 +164,7 @@ class PortalSection extends HTMLElement {
         item.setAttribute('focused', true);
       }
     });
-    window.scrollTo(0, ROWHEIGHT * this.currentRow - 1);
+    window.scrollTo(0, ROWHEIGHT * this.currentRow);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
