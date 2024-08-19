@@ -29,7 +29,7 @@ class PortalRow extends HTMLElement {
         entity.titleLayered = item.image.title_treatment["1.78"].program.default.url.replace("=jpeg", '=png');
         entity.badge = item.mediaMetadata.format;
         entity.releaseYear = item.releases[0].releaseYear;
-        entity.modalBackground = item.image.hero_collection["1.78"].program.default.url;
+        entity.modalBackground = item.image.hero_collection["1.78"].program.default.url.replace('=500', '=900');
       }
       if (isSeries) {
         entity.title = item.text.title.full.series.default.content;
@@ -37,7 +37,7 @@ class PortalRow extends HTMLElement {
         entity.titleLayered = item.image.title_treatment["1.78"].series.default.url.replace("=jpeg", '=png');
         entity.badge = item.ratings[0].value;
         entity.releaseYear = item.releases[0].releaseYear;
-        entity.modalBackground = item.image.hero_collection["1.78"].series.default.url;
+        entity.modalBackground = item.image.hero_collection["1.78"].series.default.url.replace('=500', '=900');
       }
 
       if (collection) {

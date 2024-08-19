@@ -136,9 +136,7 @@ featured-section .slides>div {
   height: 50vh;
   margin-right: 40px;
   border-radius: 10px;
-  background: #eee;
-  transform-origin: center center;
-  transition: transform 0.5s;
+  background: #eeeeee89;
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -149,7 +147,8 @@ featured-section .slides>div {
   background-position: top;
   background-repeat: no-repeat;
   box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px;
-  transform: scale(0.98);
+  border: 2px solid #000;
+  transition: 0.3s all ease-in-out;
 }
 
 featured-section .slides>div img {
@@ -161,6 +160,10 @@ featured-section .slides>div img {
 featured-section .slides>div.active img {
   display: block;
   animation: fade-in-right 2s ease forwards;
+}
+
+featured-section:not([disabled="true"]) .slides>div.active {
+  border-color: #FFF;
 }
 
 featured-section .slider .indicators {
@@ -187,10 +190,6 @@ featured-section .slider .indicators div {
 featured-section .slider .indicators div.active {
   opacity: 1;
   background-color: #FFF;
-}
-
-featured-section:not([disabled="true"]) .slider .slides div {
-  transform: scale(1);
 }
 
 featured-section:not([disabled="true"]) .slider .indicators div.active {

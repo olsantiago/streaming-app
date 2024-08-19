@@ -12,10 +12,11 @@ class FeaturedSection extends HTMLElement {
   constructor() {
     super();
     document.addEventListener('keyup', this.isNavigating.bind(this));
-    this.itemsLength = 5;
     this.currentPosition = 0;
     this.entities = [];
+    this.curatedEntities = [];
     this.preventAllNavigation = false;
+    this.isModalOpened = false;
   }
 
   render() {
@@ -30,18 +31,39 @@ class FeaturedSection extends HTMLElement {
     const indicators = this.querySelector(".slider .indicators");
 
     this?.entities.forEach((item, index) => {
+      const entity = {
+        title: "",
+        background: "",
+        modalBackground: null,
+        videoArtUrl: "",
+        titleLayered: null,
+        badge: null,
+        releaseYear: null,
+      }
+
       const isFull = item.contentType === "full";
       const div = document.createElement("div");
       const img = document.createElement("img");
       const indicator = document.createElement("div");
 
-      if(isFull) {
-        div.style.backgroundImage = `url('${item.image.hero_collection["1.78"].program.default.url.replace('=500', '=900')}')`;
-        img.src = item.image.title_treatment["1.78"].program.default.url.replace("=jpeg", '=png');
+      if (isFull) {
+        entity.title = item.text.title.full.program.default.content;
+        entity.background = item.image.tile["1.78"].program.default.url;
+        entity.titleLayered = item.image.title_treatment["1.78"].program.default.url.replace("=jpeg", '=png');
+        entity.badge = item.mediaMetadata.format;
+        entity.releaseYear = item.releases[0].releaseYear;
+        entity.modalBackground = item.image.hero_collection["1.78"].program.default.url.replace('=500', '=900');
       } else {
-        div.style.backgroundImage = `url('${item.image.hero_collection["1.78"].series.default.url.replace('=500', '=900')}')`;
-        img.src = item.image.title_treatment["1.78"].series.default.url.replace("=jpeg", '=png');
+        entity.title = item.text.title.full.series.default.content;
+        entity.background = item.image.tile["1.78"].series.default.url;
+        entity.titleLayered = item.image.title_treatment["1.78"].series.default.url.replace("=jpeg", '=png');
+        entity.badge = item.ratings[0].value;
+        entity.releaseYear = item.releases[0].releaseYear;
+        entity.modalBackground = item.image.hero_collection["1.78"].series.default.url.replace('=500', '=900');
       }
+
+      div.style.backgroundImage = `url('${entity.modalBackground}')`;
+      img.src = entity.titleLayered;
 
       div.setAttribute("id", `slide-${index}`);
       div.append(img);
@@ -52,6 +74,7 @@ class FeaturedSection extends HTMLElement {
       }
       slides.append(div);
       indicators.append(indicator);
+      this.curatedEntities.push(entity);
     })
   }
 
@@ -99,10 +122,22 @@ class FeaturedSection extends HTMLElement {
     this.scrollToItem(this.currentPosition);
   }
 
-  down(value) {
+  down() {
     const portalSection = document.querySelector("portal-section");
     this.setDisabled(true);
     portalSection.setDisabled(false);
+  }
+
+  enter() {
+    const portalModal = document.createElement("portal-modal");
+    portalModal.setDetails(this.curatedEntities[this.currentPosition]);
+    document.body.append(portalModal);
+  }
+
+  exit() {
+    if(this.isModalOpened) {
+      document.querySelector("portal-modal").remove();
+    }
   }
 
   connectedCallback() {
@@ -120,6 +155,11 @@ class FeaturedSection extends HTMLElement {
     if(this.preventAllNavigation) return;
 
     if (name === 'navigating') {
+      this.isModalOpened = document.body.classList.contains("modal-opened");
+
+      if(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter"].includes(newValue)) {
+        if(this.isModalOpened) return;
+      }
 
       if (newValue === "ArrowLeft") {
         this.left();
@@ -130,7 +170,15 @@ class FeaturedSection extends HTMLElement {
       }
 
       if(newValue === "ArrowDown") {
-        this.down(newValue);
+        this.down();
+      }
+
+      if(newValue === "Enter") {
+        this.enter();
+      }
+
+      if(newValue === "Backspace" || newValue === "Escape") {
+        this.exit();
       }
     }
   }
